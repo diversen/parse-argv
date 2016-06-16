@@ -2,6 +2,9 @@
 
 namespace diversen;
 
+/**
+ * Parse argv and get '-' and '--' flags and values, and get any value without a flag.
+ */
 class parseArgv {
     
     /**
