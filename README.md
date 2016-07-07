@@ -7,7 +7,7 @@ Install:
 Usage: 
 
 ~~~php
-use diversen\parseArgv
+use diversen\parseArgv;
 $p = new parseArgv();
 // Any flag and flag values
 print_r($p->flags);
