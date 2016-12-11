@@ -63,6 +63,32 @@ class parseArgv {
         return $ary[1];
     }
     
+    
+    /**
+     * Return a flag value
+     * @param string $key
+     * @return string $flag
+     */
+    public function getFlag ($key) {
+        if (isset($this->flags[$key])) {
+            return $this->flags[$key];
+        }
+        return null;
+    }
+    
+        /**
+     * Return a flag value
+     * @param string $key
+     * @return string $flag
+     */
+    public function getValue ($key) {
+        if (isset($this->values[$key])) {
+            return $this->values[$key];
+        }
+        return null;
+    }
+    
+    
     /**
      * var holding $flags as key => value 
      * @var array 
