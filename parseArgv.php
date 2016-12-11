@@ -7,6 +7,26 @@ namespace diversen;
  */
 class parseArgv {
     
+        
+    
+    /**
+     * var holding $flags as key => value 
+     * @var array 
+     */
+    public $flags = array ();
+    
+    /**
+     * var holding any values without flags
+     * @var array 
+     */
+    public $values = array ();
+    
+    /**
+     * var holding any values without flags by key numbers
+     * @var array 
+     */
+    public $valuesByKey = array ();
+    
     /**
      * Construct and parse global argv
      */
@@ -36,6 +56,7 @@ class parseArgv {
                 $this->flags[$flag] = $value;
             } else {
                 $this->values[$arg] = $arg;
+                $this->valuesByKey[] = $arg;
             }
         }
     }
@@ -71,13 +92,16 @@ class parseArgv {
      */
     public function getFlag ($key) {
         if (isset($this->flags[$key])) {
+            if ($this->flags[$key] === '') {
+                return true;
+            }
             return $this->flags[$key];
         }
         return null;
     }
     
-        /**
-     * Return a flag value
+    /**
+     * Return a flag value by key
      * @param string $key
      * @return string $flag
      */
@@ -88,16 +112,29 @@ class parseArgv {
         return null;
     }
     
+    /**
+     * Return a value by key
+     * @param string $key
+     * @return string $flag
+     */
+    public function getValueByKey ($key) {
+        if (isset($this->valuesByKey[$key])) {
+            return $this->valuesByKey[$key];
+        }
+        return false;
+    }
     
     /**
-     * var holding $flags as key => value 
-     * @var array 
+     * Unset a value by value and reorder keys
+     * @param string $val
      */
-    public $flags = array ();
-    
-    /**
-     * var holding any values without flags
-     * @var array 
-     */
-    public $values = array ();
+    public function unsetValueByValue($val) {
+        foreach($this->valuesByKey as $k => $value) {
+            
+            if ($value == $val) {
+                unset($this->valuesByKey[$k]);
+                $this->valuesByKey = array_values($this->valuesByKey);
+            }
+        }
+    }
 }
