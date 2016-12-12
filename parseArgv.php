@@ -125,10 +125,13 @@ class parseArgv {
     }
     
     /**
-     * Unset a value by value and reorder keys
+     * Unset a value. As values has the same in key and value
+     * it is unset by a value. Values are then reset to use
+     * numeric keys, which is smart when parsing values in
+     * command-line programs
      * @param string $val
      */
-    public function unsetValueByValue($val) {
+    public function unsetValue($val) {
         foreach($this->valuesByKey as $k => $value) {
             
             if ($value == $val) {
