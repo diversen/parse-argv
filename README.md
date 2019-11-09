@@ -24,15 +24,17 @@ Flags:
         [help] => 
         [param] => test
         [p] => 1
+
     )
 
 Values: 
 
     Array
     (
-        [value1] => value1
-        [value2] => value2
+        [0] => value1
+        [1] => value2
     )
+
 
 
 License MIT

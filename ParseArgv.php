@@ -22,12 +22,6 @@ class ParseArgv {
     public $values = array ();
     
     /**
-     * var holding any values without flags by key numbers
-     * @var array 
-     */
-    public $valuesByKey = array ();
-    
-    /**
      * Construct and parse global argv
      */
     public function __construct() {
@@ -45,6 +39,8 @@ class ParseArgv {
         
         // Don't care about the php file
         unset($args[0]);
+
+        $i = 0;
         
         foreach ($args as $arg) {
             // - and -- are commands
@@ -55,8 +51,8 @@ class ParseArgv {
                 $value = $this->getFlagValue($arg);
                 $this->flags[$flag] = $value;
             } else {
-                $this->values[$arg] = $arg;
-                $this->valuesByKey[] = $arg;
+                $this->values[$i] = $arg;
+                $i++;
             }
         }
     }
@@ -83,61 +79,5 @@ class ParseArgv {
         }
         return $ary[1];
     }
-    
-    
-    /**
-     * Return a flag value
-     * @param string $key
-     * @return string $flag
-     */
-    public function getFlag ($key) {
-        if (isset($this->flags[$key])) {
-            if ($this->flags[$key] === '') {
-                return true;
-            }
-            return $this->flags[$key];
-        }
-        return null;
-    }
-    
-    /**
-     * Return a flag value by key
-     * @param string $key
-     * @return string $flag
-     */
-    public function getValue ($key) {
-        if (isset($this->values[$key])) {
-            return $this->values[$key];
-        }
-        return null;
-    }
-    
-    /**
-     * Return a value by key
-     * @param string $key
-     * @return string $flag
-     */
-    public function getValueByKey ($key) {
-        if (isset($this->valuesByKey[$key])) {
-            return $this->valuesByKey[$key];
-        }
-        return false;
-    }
-    
-    /**
-     * Unset a value. As values has the same in key and value
-     * it is unset by a value. Values are then reset to use
-     * numeric keys, which is smart when parsing values in
-     * command-line programs
-     * @param string $val
-     */
-    public function unsetValue($val) {
-        foreach($this->valuesByKey as $k => $value) {
-            
-            if ($value == $val) {
-                unset($this->valuesByKey[$k]);
-                $this->valuesByKey = array_values($this->valuesByKey);
-            }
-        }
-    }
+
 }
