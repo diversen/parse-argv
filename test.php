@@ -67,3 +67,4 @@ var_dump($p->getArgument(0));
 // -> argument1
 
 var_dump($p->argumentExists(0));
+// -> true
