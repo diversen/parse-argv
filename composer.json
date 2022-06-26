@@ -1,7 +1,7 @@
 {
     "name": "diversen/parse-argv",
     "type": "library",
-    "description": "Parse argv and get - and -- flags and values, and get any value without a flag.",
+    "description": "Parse argv and get - and -- options and arguments",
     "homepage": "http://github.com/diversen/parse-argv",
     "keywords": ["argv", "console", "cli"],
     "license": "MIT",
@@ -9,7 +9,7 @@
         {
             "name": "Dennis Iversen",
             "email": "dennis.iversen@gmail.com",
-            "homepage": "http://www.coscms.org/",
+            "homepage": "https://github.com/diversen",
             "role": "Developer"
         }
     ],
@@ -17,10 +17,6 @@
         "psr-4": {
             "Diversen\\": ""
         }
-    },
-    "extra": {
-        "branch-alias": {
-            "dev-master": "v1.2-dev"
-        }
     }
+
 }
