@@ -1,6 +1,7 @@
 <?php
 
-include_once "ParseArgv.php";
+require "vendor/autoload.php";
+
 use Diversen\ParseArgv;
 
 function message($message) {
