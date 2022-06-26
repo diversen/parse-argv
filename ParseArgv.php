@@ -117,7 +117,10 @@ class ParseArgv {
      * Does an option exist, by value, e.g. 'help'
      */
     public function optionExists ($option) {
-        return isset($this->options[$option]);
+        if (isset($this->options[$option])) {
+            return true;
+        }
+        return false;
     }
     
     /**
@@ -127,6 +130,7 @@ class ParseArgv {
         if (isset($this->arguments[$key])) {
             return true;
         }
+        return false;
     }
     
     /**
@@ -142,8 +146,9 @@ class ParseArgv {
      * Unset a value from arguments_by_key. 
      */
     public function unsetArgument($key) {
-        unset($this->arguments[$key]);
-
-        $this->arguments = array_values($this->arguments);
+        if (isset($this->arguments[$key])) {
+            unset($this->arguments[$key]);
+            $this->arguments = array_values($this->arguments);
+        }
     }
 }

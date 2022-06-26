@@ -24,10 +24,6 @@ $args = array (
 // Use global argv
 $p = new ParseArgv();
 
-// Unset the first argument (the php file name or the CLI program name)
-// $p->unsetArgument(0);
-
-// Options are 
 message('Options are:');
 var_dump($p->options);
 // ->
@@ -66,5 +62,5 @@ message('Value of argument 1');
 var_dump($p->getArgument(0));
 // -> argument1
 
-var_dump($p->argumentExists(0));
-// -> true
+var_dump($p->argumentExists(3));
+// -> NULL
