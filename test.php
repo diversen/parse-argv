@@ -58,9 +58,10 @@ message("Does option 'h' exist");
 var_dump($p->optionExists('h'));
 // -> true
 
-message('Value of argument 1');
+message('Value of first argument');
 var_dump($p->getArgument(0));
 // -> argument1
 
+message('Is there a third argument?');
 var_dump($p->argumentExists(3));
-// -> NULL
+// -> false
