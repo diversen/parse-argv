@@ -1,4 +1,7 @@
+#!/usr/bin/env php
 <?php
+
+declare(strict_types=1);
 
 require "vendor/autoload.php";
 
@@ -10,7 +13,7 @@ function message($message) {
 
 // You can specify argv in the constructor:
 $args = array (
-    0 => 'test.php',
+    0 => '/home/dennis/parse-argv/example.php',
     1 => '-h',
     2 => '--help',
     3 => '--message=hello',
@@ -24,6 +27,9 @@ $args = array (
 
 // Use global argv
 $p = new ParseArgv();
+
+// Command name
+echo "Command name is " . $p->command_name . "\n";
 
 message('Options are:');
 var_dump($p->options);

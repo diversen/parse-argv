@@ -1,7 +1,7 @@
 {
     "name": "diversen/parse-argv",
     "type": "library",
-    "description": "Parse argv and get - and -- options and arguments",
+    "description": "Parse argv and get options and arguments",
     "homepage": "http://github.com/diversen/parse-argv",
     "keywords": ["argv", "console", "cli"],
     "license": "MIT",
@@ -17,6 +17,8 @@
         "psr-4": {
             "Diversen\\": ""
         }
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^9.5"
     }
-
 }

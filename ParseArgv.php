@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Diversen;
 
 /**
@@ -25,6 +27,8 @@ class ParseArgv {
     public function __construct(array $argv_ = null) {
         $this->parse($argv_);
     }
+
+    public $command_name = '';
     
     /**
      * Parse argv. If $argv_ is not set then use global $argv
@@ -36,10 +40,8 @@ class ParseArgv {
             global $argv;
             $argv_ = $argv;
         }
-        
-        // Don't care about the php file
-        unset($argv_[0]);
 
+        
         foreach ($argv_ as $arg) {
 
             // Get commands ('-', '--')
@@ -55,6 +57,11 @@ class ParseArgv {
                 $this->arguments[] = $arg;
             }
         }
+
+        $this->command_name = basename($this->getArgument(0));
+
+        // Unset program name as argument
+        $this->unsetArgument(0);
     }
     
     /**
@@ -97,20 +104,6 @@ class ParseArgv {
             // Flag has a value
             return $this->options[$option];
         }
-    }
-
-    /**
-     * Checks if at least one option in a given array of options is set in the argv options
-     */
-    public function inOptions($options) {
-        $argv_options = array_keys($this->options);
-        foreach($argv_options as $option) {
-            if (in_array($option, $options)) {
-                return true;
-            }
-        }
-        return false;
-        
     }
 
     /**

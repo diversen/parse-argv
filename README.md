@@ -10,12 +10,14 @@
 
     cd parse-argv
 
-    composer dump-autoload
+    ./test.sh
+
+## Example
 
 Run the following test script:
 
-    php test.php  -h --help --message=hello argument1 argument2
+    php example.php  -h --help --message=hello argument1 argument2
 
-See: [test.php](test.php)
+See: [example.php](example.php)
 
 License MIT
