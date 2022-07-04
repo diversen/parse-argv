@@ -4,14 +4,6 @@
 
     composer require diversen/parse-argv
 
-## Test
-
-    git clone https://github.com/diversen/parse-argv
-
-    cd parse-argv
-
-    ./test.sh
-
 ## Example
 
 Run the following test script:
@@ -19,5 +11,12 @@ Run the following test script:
     php example.php  -h --help --message=hello argument1 argument2
 
 See: [example.php](example.php)
+
+## Test
+
+    git clone https://github.com/diversen/parse-argv
+    cd parse-argv
+    composer install
+    ./test.sh
 
 License MIT
