@@ -6,7 +6,7 @@
 
 ## Test
 
-    git clone https://github.com/diversen/minimal-cli-framework
+    git clone https://github.com/diversen/parse-argv
 
     cd parse-argv
 
