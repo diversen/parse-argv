@@ -14,7 +14,7 @@ See: [example.php](example.php)
 
 ## Test
 
-    git clone https://github.com/diversen/parse-argv
+    git clone git@github.com:diversen/parse-argv.git
     cd parse-argv
     composer install
     ./test.sh
