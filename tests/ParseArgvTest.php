@@ -11,23 +11,36 @@ final class ParseArgvTest extends TestCase
     {
 
         // You can specify argv in the constructor:
-        $args = array (
-            0 => '/home/dennis/parse-argv/test.php',
-            1 => '-h',
-            2 => '--help',
-            3 => '--message=hello',
-            4 => 'argument1',
-            5 => 'argument2',
-        );
+        $args = [
+            '/home/dennis/parse-argv/test.php',
+            '-h',
+            '--help',
+            '--message  = hello',
+            '--to-int=100',
+            '--to-float=100.5',
+            '--to-bool=false',
+            'argument1',
+            'argument2',
+        ];
 
-        $parse_argv = new ParseArgv($args);
+        $cast = [
+            'to-int' => 'int',
+            'to-float' => 'float',
+            'to-bool' => 'boolean',
+        ];
+
+        $parse_argv = new ParseArgv($args, $cast);
 
         $this->assertEquals('test.php', $parse_argv->command_name);
 
         $options = [
-            'h' => '',
-            'help' => '',
-            'message' => 'hello'];
+            'h' => true,
+            'help' => true,
+            'message' => 'hello',
+            'to-int' => 100,
+            'to-float' => 100.5,
+            'to-bool' => false,
+        ];
         
         $this->assertEquals($options, $parse_argv->options);
 

@@ -1,5 +1,9 @@
 # Simple argv parser
 
+Any options are denoted by '-' or '--' and any option value must be specified by '='
+
+You may cast options to int, float or booleans 
+
 ## Install: 
 
     composer require diversen/parse-argv
@@ -8,7 +12,7 @@
 
 Run the following test script:
 
-    php example.php  -h --help --message=hello argument1 argument2
+    php example.php  -h --help --message=hello --to-int=100 --to-float=100.5 --to-bool=false argument1 argument2
 
 See: [example.php](example.php)
 

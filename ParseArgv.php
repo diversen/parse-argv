@@ -4,45 +4,30 @@ declare(strict_types=1);
 
 namespace Diversen;
 
-/**
- * Parse argv and return an array with the options and arguments.
- */
 class ParseArgv {
     
-    /**
-     * var holding $options as key => value 
-     * @var array 
-     */
-    public $options = array ();
-    
-    /**
-     * var holding any arguments without options
-     * @var array 
-     */
-    public $arguments = array ();
-    
-    /**
-     * Construct and parse global argv
-     */
-    public function __construct(array $argv_ = null) {
-        $this->parse($argv_);
-    }
 
-    public $command_name = '';
+    public array $options = array ();
+    
+    public array $arguments = array ();
+
+    public string $command_name = '';
+    
+    public function __construct(array $argv = null, array $cast = array ()) {
+        $this->parse($argv, $cast);
+    }
     
     /**
-     * Parse argv. If $argv_ is not set then use global $argv
+     * Parse argv. If $argv is not set then use global $argv
      * @global array $argv
      */
-    public function parse(array $argv_ = null) {
+    private function parse(array $argv = null, array $cast = array ()) {
         
-        if (!$argv_) {
+        if (!$argv) {
             global $argv;
-            $argv_ = $argv;
         }
-
         
-        foreach ($argv_ as $arg) {
+        foreach ($argv as $arg) {
 
             // Get commands ('-', '--')
             if (preg_match("/^[-]{1,2}/", $arg)) {
@@ -58,58 +43,87 @@ class ParseArgv {
             }
         }
 
+        $this->castOptions($cast);
         $this->command_name = basename($this->getArgument(0));
-
-        // Unset program name as argument
         $this->unsetArgument(0);
     }
-    
+
+    /*
+     * Cast options to a specific type
+    */
+    private function castOptions(array $cast) {
+        foreach ($cast as $key => $type) {
+            if (isset($this->options[$key])) {
+                $this->options[$key] = $this->castValue($this->options[$key], $type);
+            }
+        }    
+    }
+
+    /*
+     * Cast a value to a specific type
+    */
+    private function castValue($value, $type) {
+        switch ($type) {
+            case 'int':
+                return (int) $value;
+            case 'float':
+                return (float) $value;
+            case 'boolean':
+                if ($value === 'false') {
+                    return false;
+                }
+
+                if ($value === 'true') {
+                    return true;
+                }
+
+                if ($value === '0') {
+                    return false;
+                }
+
+                if ($value === '1') {
+                    return true;
+                }
+
+                return (bool) $value;
+            default:
+                return $value;
+        }
+    }
+
     /**
-     * Get option key from option string
-     * @param string $arg
-     * @return string $value
+     * Get option key from argv arg
      */
-    private function getOptionKey ($arg) {
+    private function getOptionKey (string $arg): string {
         $ary = explode('=', $arg);
-        return $ary[0];
+        return trim($ary[0]);
     }
     
     /**
-     * Get option value from option string
-     * @param string $arg
-     * @return string
+     * Get option value from argv arg
      */
-    private function getOptionsValue ($arg) {
+    private function getOptionsValue (string $arg): bool|string {
         $ary = explode('=', $arg);
         if (empty($ary[1])) {
-            return '';
+            return true;
         }
-        return $ary[1];
+        return trim($ary[1]);
     }
     
-    
     /**
-     * Return a option from options. If the option is not set return 'null'
-     * If the option is set return the option value as a string. If the option is set
-     * but does not have any value return true
+     * Get an option
      */
-    public function getOption ($option) {
+    public function getOption (string $option): mixed {
         if (isset($this->options[$option])) {
-
-            // Flag exists, but no value
-            if ($this->options[$option] === '') {
-                return true;
-            }
-
-            // Flag has a value
             return $this->options[$option];
         }
+        return null;
     }
 
     /**
      * Does an option exist, by value, e.g. 'help'
      */
-    public function optionExists ($option) {
+    public function optionExists (string $option): bool {
         if (isset($this->options[$option])) {
             return true;
         }
@@ -119,7 +133,7 @@ class ParseArgv {
     /**
      * Does an argument exists (by index, e.g. 0)
      */
-    public function argumentExists ($key) {
+    public function argumentExists (int $key) {
         if (isset($this->arguments[$key])) {
             return true;
         }
@@ -129,7 +143,7 @@ class ParseArgv {
     /**
      * Get argument by index (e.g. 0)
      */
-    public function getArgument ($key) {
+    public function getArgument (int $key) {
         if (isset($this->arguments[$key])) {
             return $this->arguments[$key];
         }
@@ -138,7 +152,7 @@ class ParseArgv {
     /**
      * Unset a value from arguments_by_key. 
      */
-    public function unsetArgument($key) {
+    public function unsetArgument(int $key) {
         if (isset($this->arguments[$key])) {
             unset($this->arguments[$key]);
             $this->arguments = array_values($this->arguments);
