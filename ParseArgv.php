@@ -139,6 +139,15 @@ class ParseArgv
         return false;
     }
 
+
+    /**
+     * Get all options
+     */
+    public function getOptions(): array
+    {
+        return $this->options;
+    }
+
     /**
      * Does an argument exists (by index, e.g. 0)
      */
@@ -158,6 +167,14 @@ class ParseArgv
         if (isset($this->arguments[$key])) {
             return $this->arguments[$key];
         }
+    }
+
+    /**
+     * Get all arguments
+     */
+    public function getArguments(): array
+    {
+        return $this->arguments;
     }
 
     /**
